@@ -15,22 +15,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Auth::routes();
-
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('user.home');
 });
 
 Auth::routes();
 
+
+
 //Route::post('/register', [App\Http\Controllers\HomeController::class, 'asdf'])->name('register');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['prefix' =>'user', 'middleware'=>'auth', 'as' => 'user.'], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+});
+
+Route::group(['namespace' => 'Support', 'middleware'=>'auth'], function () {
+    Route::get('/lang/{locale}', [App\Http\Controllers\Web\Support\LocalizationController::class, 'index'])->name('lang');
+});
+
+
 
 Route::group(['prefix' =>'admin', 'middleware'=>'admin', 'as' => 'admin.'], function () {
     Route::resources([
         'users' => App\Http\Controllers\Web\Admin\UserController::class,
     ]);
+    Route::resource('agents', \App\Http\Controllers\Web\Admin\AgentController::class)->only('index', 'store', 'edit', 'destroy');
 });
 

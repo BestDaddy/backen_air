@@ -54,7 +54,7 @@
 {{--            <div class="sidebar-brand-icon rotate-n-15">--}}
 {{--                <i class="fas fa-laugh-wink"></i>--}}
 {{--            </div>--}}
-            <div class="sidebar-brand-text mx-3">Know Study</div>
+            <div class="sidebar-brand-text mx-3">ALMATY AIR</div>
         </a>
 
         <!-- Divider -->
@@ -163,14 +163,14 @@
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ __('lang.name')}}</span>
                             <i class='fas fa-angle-down'></i>
                         </a>
-{{--                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">--}}
-{{--                            <a class="dropdown-item" href="<?= route('lang', ['locale' => 'en']) ?>">--}}
-{{--                                English(en)--}}
-{{--                            </a>--}}
-{{--                            <a class="dropdown-item" href="<?= route('lang', ['locale' => 'ru']) ?>">--}}
-{{--                                Русский(ru)--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="{{route('lang', ['locale' => 'en'])}}">
+                                English(en)
+                            </a>
+                            <a class="dropdown-item" href="{{route('lang', ['locale' => 'ru'])}}">
+                                Русский(ru)
+                            </a>
+                        </div>
                     </li>
 
                 </ul>
