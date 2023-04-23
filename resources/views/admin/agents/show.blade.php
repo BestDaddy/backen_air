@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h2>{{__('lang.all_agents')}} :</h2>
+    <h2>{{__('lang.all_agents')}}:</h2>
     <hr>
     <br>
     <div class="row" style="clear: both;">
@@ -20,9 +20,7 @@
             <tr>
                 <th width="5%">ID</th>
                 <th width="15%">{{__('lang.name')}}</th>
-                <th width="15%">{{__('lang.ip')}}</th>
                 <th width="10%">{{__('lang.last_seen_at')}}</th>
-                <th width="15%"></th>
                 <th width="15%"></th>
             </tr>
             </thead>
@@ -42,30 +40,15 @@
                 <div class="modal-body">
                     <form name="Form" class="form-horizontal">
                         <input type="hidden" name="model_id" id="model_id">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="inputName">{{__('lang.name')}}</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="name"
-                                           name="name">
-                                </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="inputPhone">{{__('lang.role')}}</label>
+                                <select class="form-control" id="minion_type_id" name="minion_type_id">
+                                    @foreach($minion_types as $type)
+                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="inputPhone">{{__('lang.ip')}}</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="ip"
-                                           name="ip">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPhone">{{__('lang.config')}}</label>
-                            <textarea rows="5" class="form-control" id="config"
-                                       name="config"></textarea>
                         </div>
                         <div class="form-group" id="form-errors">
                             <div class="alert alert-danger">
@@ -146,27 +129,22 @@
         }
         function save() {
             var id = $('#model_id').val();
-            var name = $('#name').val();
-            var ip = $('#ip').val();
-            var config = $('#config').val();
+
+            var minion_type_id = $('#minion_type_id').val();
             let _token   = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: "{{ route('admin.agents.store') }}",
+                url: "{{ route('admin.minions.store') }}",
                 type: "POST",
                 data: {
                     id: id,
-                    name: name,
-                    ip: ip,
-                    config: config,
+                    minion_type_id: minion_type_id,
+                    agent_id: {{$agent->id}},
                     _token: _token
                 },
                 success: function(response) {
                     if(response.code === 200) {
                         $('#model_id').val('');
-                        $('#ip').val('');
-                        $('#config').val('{}');
-                        $('#name').val('');
                         $('#model_table').DataTable().ajax.reload();
                         $('#post-modal').modal('hide');
                     }
@@ -197,7 +175,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.agents.index') }}",
+                    url: "{{ route('admin.agents.show', $agent->id)}}",
                 },
                 columns: [
                     {
@@ -205,25 +183,17 @@
                         name: 'id'
                     },
                     {
-                        data: 'name',
+                        data: 'minion_type.name',
                         name: 'name'
                     },
+
                     {
-                        data: 'ip',
-                        name: 'ip'
-                    },
-                    {
-                        data: 'last_seen_at',
-                        name: 'last_seen_at'
+                        data: 'expired_at',
+                        name: 'expired_at'
                     },
                     {
                         data: 'edit',
                         name: 'edit',
-                        orderable: false
-                    },
-                    {
-                        data: 'more',
-                        name: 'more',
                         orderable: false
                     },
                 ]

@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Minion;
 use App\Services\Agents\AgentsService;
+use App\Services\MinionTypes\MinionTypesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class AgentController extends Controller
 {
     private AgentsService $agentsService;
-    public function __construct(AgentsService $agentsService)
+    private MinionTypesService $minionTypesService;
+    public function __construct(AgentsService $agentsService, MinionTypesService $minionTypesService)
     {
         $this->agentsService = $agentsService;
+        $this->minionTypesService = $minionTypesService;
     }
 
     public function index()
@@ -43,6 +47,24 @@ class AgentController extends Controller
     public function edit(string $id)
     {
         return response()->json($this->agentsService->find($id));
+    }
+
+    public function show($id) {
+        $agent = $this->agentsService->find($id);
+        if(request()->ajax()) {
+            return datatables()->of($agent->minions()->with(['minionType']))
+                ->addColumn('edit', function ($data) {
+                    return '<button
+                         class=" btn btn-primary btn-sm btn-block "
+                          data-id="' . $data->id . '"
+                          onclick="editModel(event.target)"><i class="fas fa-edit" data-id="' . $data->id . '"></i> ' . 'Edit' . '</button>';
+                })
+                ->rawColumns(['edit'])
+                ->make();
+        }
+
+        $minion_types = $this->minionTypesService->all();
+        return view('admin.agents.show', compact('agent', 'minion_types'));
     }
 
     public function destroy(string $id)

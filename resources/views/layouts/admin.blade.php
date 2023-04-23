@@ -75,12 +75,17 @@
             {{__('lang.menu')}}
         </div>
         @if(Auth::user())
-        @if(Auth::user()->role_id == 1)
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="{{route('courses.index')}}">--}}
-{{--                <i class="fas fa-fw fa-book"></i>--}}
-{{--                <span>{{__('lang.courses')}}</span></a>--}}
-{{--        </li>--}}
+        @if(Auth::user()->role_id == \App\Models\Role::ROLE_ADMIN_ID)
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.users.index')}}">
+                <i class="fas fa-fw fa-users"></i>
+                <span>{{__('lang.users')}}</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.agents.index')}}">
+                <i class="fas fa-fw fa-bookmark"></i>
+                <span>{{__('lang.agents')}}</span></a>
+        </li>
 
 {{--        <li class="nav-item">--}}
 {{--            <a class="nav-link" href="{{route('groups.index')}}">--}}

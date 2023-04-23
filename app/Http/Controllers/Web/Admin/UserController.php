@@ -45,7 +45,7 @@ class UserController extends Controller
             'id' => 'numeric|nullable',
             'first_name'=> 'required',
             'email' => 'required|email|unique:users,email,'. $request->id,
-            'role_id' => 'required',
+            'role_id' => 'required|exists:roles,id',
             'password' => 'required_without:id',
         );
         $error = Validator::make($request->all(), $rules);

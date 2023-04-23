@@ -15,7 +15,7 @@ class Minion extends Model
 
     protected $hidden = [
         'token',
-        'expired_at'
+//        'expired_at'
     ];
 
     public function agent() {

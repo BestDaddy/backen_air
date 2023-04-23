@@ -216,18 +216,6 @@
                         $('#model_table').DataTable().ajax.reload();
                         $('#post-modal').modal('hide');
                     }
-                    else{
-                        var errors = response.errors;
-                        errorsHtml = '<div class="alert alert-danger"><ul>';
-
-                        $.each( errors, function( key, value ) {
-                            errorsHtml += '<li>'+ value + '</li>'; //showing only the first error.
-                        });
-                        errorsHtml += '</ul></div>';
-
-                        $( '#form-errors' ).html( errorsHtml ); //appending to a <div id="form-errors"></div> inside form
-
-                    }
                 },
                 error: function(response) {
                     $('#nameError').text(response.responseJSON.errors.name);
