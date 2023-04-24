@@ -16,6 +16,14 @@ class MinionController extends Controller
         $this->minionsService = $minionsService;
     }
 
+    public function index() {
+        if(request()->ajax()) {
+            return $this->minionsService->datatable([], ['minionType']);
+        }
+
+        return view('admin.minions.index');
+    }
+
     public function store(Request $request) {
         $error = Validator::make($request->all(), array(
             'id' => 'numeric|nullable',
@@ -26,7 +34,7 @@ class MinionController extends Controller
                 Rule::unique('minions')->where(function ($q) use ($request) {
                     return $q->where('agent_id', $request->agent_id)
                         ->where('minion_type_id', $request->minion_type_id);
-                }),
+                })->ignore($request->id),
             ],
 
         ));
@@ -39,5 +47,14 @@ class MinionController extends Controller
         return response()->json(['code' => 200, 'message'=>'Minion saved successfully', 'data' => $minion], 200);
     }
 
+    public function edit($id) {
+        return response()->json($this->minionsService->find($id));
+    }
 
+    public function destroy(string $id)
+    {
+
+        $this->minionsService->delete($id);
+        return response()->json(['code' => 200, 'message'=>'Minion deleted successfully'], 200);
+    }
 }

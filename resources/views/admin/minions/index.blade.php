@@ -21,7 +21,6 @@
                 <th width="5%">ID</th>
                 <th width="15%">{{__('lang.name')}}</th>
                 <th width="10%">{{__('lang.last_seen_at')}}</th>
-                <th width="15%"></th>
             </tr>
             </thead>
         </table>
@@ -43,11 +42,11 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="inputPhone">{{__('lang.role')}}</label>
-                                <select class="form-control" id="minion_type_id" name="minion_type_id">
-                                    @foreach($minion_types as $type)
-                                        <option value="{{$type->id}}">{{$type->name}}</option>
-                                    @endforeach
-                                </select>
+{{--                                <select class="form-control" id="minion_type_id" name="minion_type_id">--}}
+{{--                                    @foreach($minion_types as $type)--}}
+{{--                                        <option value="{{$type->id}}">{{$type->name}}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
                             </div>
                         </div>
                         <div class="form-group" id="form-errors">
@@ -75,7 +74,7 @@
 
 
 @section('scripts')
-   <script>
+    <script>
 
         function add() {
             $('#form-errors').html("");
@@ -137,7 +136,7 @@
                 data: {
                     id: id,
                     minion_type_id: minion_type_id,
-                    agent_id: {{$agent->id}},
+                    {{--agent_id: {{$agent->id}},--}}
                     _token: _token
                 },
                 success: function(response) {
@@ -165,7 +164,7 @@
 
             $('#model_table').DataTable({
                 @php $locale = session()->get('locale'); @endphp
-                @if($locale != 'en')
+                    @if($locale != 'en')
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"
                 },
@@ -173,7 +172,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.agents.show', $agent->id)}}",
+                    url: "{{ route('admin.minions.index')}}",
                 },
                 columns: [
                     {
@@ -188,11 +187,6 @@
                     {
                         data: 'expired_at',
                         name: 'expired_at'
-                    },
-                    {
-                        data: 'edit',
-                        name: 'edit',
-                        orderable: false
                     },
                 ]
             });

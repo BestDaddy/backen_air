@@ -86,6 +86,11 @@
                 <i class="fas fa-fw fa-bookmark"></i>
                 <span>{{__('lang.agents')}}</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.minions.index')}}">
+                <i class="fas fa-fw fa-address-book"></i>
+                <span>{{__('lang.minions')}}</span></a>
+        </li>
 
 {{--        <li class="nav-item">--}}
 {{--            <a class="nav-link" href="{{route('groups.index')}}">--}}

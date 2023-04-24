@@ -42,6 +42,7 @@ Route::group(['prefix' =>'admin', 'middleware'=>'admin', 'as' => 'admin.'], func
         'users' => App\Http\Controllers\Web\Admin\UserController::class,
     ]);
     Route::resource('agents', \App\Http\Controllers\Web\Admin\AgentController::class)->only('index', 'store', 'edit', 'show', 'destroy');
-    Route::resource('minions', \App\Http\Controllers\Web\Admin\MinionController::class)->only('store');
+    Route::resource('minions', \App\Http\Controllers\Web\Admin\MinionController::class)->only('index', 'store', 'edit', 'destroy');
+    Route::resource('minion-types', \App\Http\Controllers\Web\Admin\MinionTypeController::class)->only('index', 'store', 'edit', 'destroy');
 });
 
