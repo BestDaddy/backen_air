@@ -12,5 +12,5 @@ class MinionType extends Model
     ];
 
     public const AIR_ID = 1;
-
+    public $timestamps = false;
 }

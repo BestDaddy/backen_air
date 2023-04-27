@@ -8,11 +8,7 @@
     <h2>{{__('lang.all_agents')}}:</h2>
     <hr>
     <br>
-    <div class="row" style="clear: both;">
-        <div class="col-12 text-right">
-            <a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" onclick="add()"><i class="fas fa-plus-square"></i> {{__('lang.new_agent')}}</a>
-        </div>
-    </div>
+    <br>
     <br>
     <div class="table-responsive">
         <table class=" table table-bordered table-striped" id="model_table" width="100%">

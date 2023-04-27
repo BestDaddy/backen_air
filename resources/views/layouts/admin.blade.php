@@ -91,7 +91,11 @@
                 <i class="fas fa-fw fa-address-book"></i>
                 <span>{{__('lang.minions')}}</span></a>
         </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('admin.minion-types.index')}}">
+                    <i class="fas fa-fw fa-address-book"></i>
+                    <span>{{__('lang.minion-types')}}</span></a>
+            </li>
 {{--        <li class="nav-item">--}}
 {{--            <a class="nav-link" href="{{route('groups.index')}}">--}}
 {{--                <i class="fas fa-fw fa-users"></i>--}}

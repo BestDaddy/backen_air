@@ -20,7 +20,8 @@
             <tr>
                 <th width="5%">ID</th>
                 <th width="15%">{{__('lang.name')}}</th>
-                <th width="10%">{{__('lang.last_seen_at')}}</th>
+                <th width="15%">{{__('lang.class')}}</th>
+                <th width="10%"></th>
             </tr>
             </thead>
         </table>
@@ -39,15 +40,19 @@
                 <div class="modal-body">
                     <form name="Form" class="form-horizontal">
                         <input type="hidden" name="model_id" id="model_id">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="inputPhone">{{__('lang.role')}}</label>
-                                {{--                                <select class="form-control" id="minion_type_id" name="minion_type_id">--}}
-                                {{--                                    @foreach($minion_types as $type)--}}
-                                {{--                                        <option value="{{$type->id}}">{{$type->name}}</option>--}}
-                                {{--                                    @endforeach--}}
-                                {{--                                </select>--}}
-                            </div>
+                        <div class="form-group">
+                            <label for="inputPhone">{{__('lang.last_name')}}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="name"
+                                   name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone">{{__('lang.class')}}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="class"
+                                   name="class">
                         </div>
                         <div class="form-group" id="form-errors">
                             <div class="alert alert-danger">
@@ -79,8 +84,7 @@
         function add() {
             $('#form-errors').html("");
             $('#staticBackdropLabel').text("{{__('lang.new_aget')}}");
-            $('#ip').val('');
-            $('#config').val('{}');
+            $('#class').val('');
             $('#name').val('');
             $('#collapseExample').hide();
             $('#post-modal').modal('show');
@@ -118,7 +122,8 @@
                 success: function(response) {
                     if(response) {
                         $('#model_id').val(response.id);
-                        $('#minion_type_id').val(response.minion_type_id);
+                        $('#name').val(response.name);
+                        $('#class').val(response.class);
                         $('#post-modal').modal('show');
                     }
                 }
@@ -127,7 +132,8 @@
         function save() {
             var id = $('#model_id').val();
 
-            var minion_type_id = $('#minion_type_id').val();
+            var name = $('#name').val();
+            var class1 = $('#class').val();
             let _token   = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
@@ -135,13 +141,16 @@
                 type: "POST",
                 data: {
                     id: id,
-                    minion_type_id: minion_type_id,
+                    name: name,
+                    class : class1,
                     {{--agent_id: {{$agent->id}},--}}
                     _token: _token
                 },
                 success: function(response) {
                     if(response.code === 200) {
                         $('#model_id').val('');
+                        $('#name').val('');
+                        $('#class').val('');
                         $('#model_table').DataTable().ajax.reload();
                         $('#post-modal').modal('hide');
                     }
@@ -180,14 +189,18 @@
                         name: 'id'
                     },
                     {
-                        data: 'minion_type.name',
+                        data: 'name',
                         name: 'name'
                     },
-
                     {
-                        data: 'expired_at',
-                        name: 'expired_at'
+                        data: 'class',
+                        name: 'class'
                     },
+                    {
+                        data: 'edit',
+                        name: 'edit',
+                        orderable: false
+                    }
                 ]
             });
         });
