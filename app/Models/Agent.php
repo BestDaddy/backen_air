@@ -10,6 +10,7 @@ class Agent extends Model
         'name',
         'ip',
         'token',
+        'expired_at',
         'last_seen_at',
         'config',
     ];

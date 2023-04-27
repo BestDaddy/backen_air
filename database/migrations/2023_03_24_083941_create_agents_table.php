@@ -17,6 +17,7 @@ return new class extends Migration
             $table->ipAddress('ip')->unique();
             $table->ipAddress('token')->nullable();
             $table->json('config')->nullable();
+            $table->timestamp('expired_at')->nullable();
             $table->timestamp('last_seen_at')->nullable();
             $table->timestamps();
         });

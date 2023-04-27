@@ -39,7 +39,7 @@ interface BaseService
      * @param array $attributes
      * @return Model
      */
-    public function update($id, array $attributes): Model;
+    public function update($id, array $attributes) : bool;
 
     /**
      * @param array $params

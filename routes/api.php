@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+
+Route::group(['prefix' =>'agent', 'middleware' => 'auth.agent', 'as' => 'agent.'], function () {
+    Route::post('/auth', [\App\Http\Controllers\Api\AgentController::class, 'auth'])->name('auth')->withoutMiddleware(['auth.agent']);
+
 });

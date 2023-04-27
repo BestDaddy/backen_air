@@ -93,13 +93,9 @@ class BaseServiceImpl implements BaseService
         return $query->get();
     }
 
-    public function update($id, array $attributes): Model
+    public function update($id, array $attributes) : bool
     {
-        $model = $this->model->find($id);
-
-        $model->update($attributes);
-
-        return $model;
+        return $this->model::where($this->model->getKeyName(), $id)->update($attributes);
     }
 
     public function delete($id)
