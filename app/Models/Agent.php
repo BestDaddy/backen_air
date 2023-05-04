@@ -19,6 +19,9 @@ class Agent extends Model
         'config' => 'array',
     ];
 
+    protected $hidden = [
+        'token'
+    ];
     public function minions() {
         return $this->hasMany(Minion::class);
     }

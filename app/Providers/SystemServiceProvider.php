@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\Agents\AgentsService;
 use App\Services\Agents\AgentsServiceImpl;
+use App\Services\Logs\LogsService;
+use App\Services\Logs\LogsServiceImpl;
 use App\Services\Minions\MinionsService;
 use App\Services\Minions\MinionsServiceImpl;
 use App\Services\MinionTypes\MinionTypesService;
@@ -30,5 +32,6 @@ class SystemServiceProvider extends ServiceProvider
         $this->app->bind(AgentsService::class, AgentsServiceImpl::class);
         $this->app->bind(MinionsService::class, MinionsServiceImpl::class);
         $this->app->bind(MinionTypesService::class, MinionTypesServiceImpl::class);
+        $this->app->bind(LogsService::class, LogsServiceImpl::class);
     }
 }

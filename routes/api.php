@@ -21,5 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' =>'agent', 'middleware' => 'auth.agent', 'as' => 'agent.'], function () {
     Route::post('/auth', [\App\Http\Controllers\Api\AgentController::class, 'auth'])->name('auth')->withoutMiddleware(['auth.agent']);
-
+    Route::get('/me', [\App\Http\Controllers\Api\AgentController::class, 'me']);
+    Route::post('/send', [\App\Http\Controllers\Api\AgentController::class, 'send'])->withoutMiddleware(['auth.agent']);
 });

@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('agent_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('minion_id')->constrained()->onDelete('CASCADE');
+            $table->json('data')->nullable();
             $table->timestamps();
         });
     }

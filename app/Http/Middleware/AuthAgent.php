@@ -3,23 +3,24 @@
 namespace App\Http\Middleware;
 
 use App\Models\Agent;
+use App\Models\Minion;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 
-class AuthAgent extends Middleware
+class AuthAgent
 {
-    public function handle(Request $request, Closure $next)
+    public function handle( $request, Closure $next)
     {
         $token = $request->header('token');
         if($token){
-            $agent = Agent::where('token', $token)->first();
-            if ($agent)
-                $request->merge(['agent' => $agent]);
-            else
-                abort(401);
-        }
+            $minion = Minion::where('token', $token)->first();
+            if ($minion) {
+                $request->merge(['minion' => $minion]);
 
-        return redirect('/login');
+                return $next($request);
+            }
+        }
+        abort(401);
     }
 }

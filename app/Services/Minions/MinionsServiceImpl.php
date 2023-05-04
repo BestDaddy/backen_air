@@ -11,4 +11,11 @@ class MinionsServiceImpl extends BaseServiceImpl implements MinionsService
     {
         parent::__construct($model);
     }
+
+    public function auth($ip, $type)
+    {
+        return Minion::where('minion_type_id', $type)->whereHas('agent', function ($q) use ($ip) {
+            $q->where('ip', $ip);
+        })->first();
+    }
 }
