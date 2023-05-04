@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    use HasFactory;
+//    use HasFactory;
 
     protected $fillable = [
         'agent_id',
@@ -16,7 +16,8 @@ class Log extends Model
     ];
 
     protected $casts = [
-        'data' => 'array'
+        'data' => 'array',
+        'created_at' => 'datetime:Y-m-d H:m:s',
     ];
 
     public function agent() {

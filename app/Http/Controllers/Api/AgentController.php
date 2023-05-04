@@ -49,13 +49,29 @@ class AgentController extends ApiBaseController
     }
 
     public function send(Request $request) {
-        return $this->makeResponse(200, [
-            'asdf' => AirParser::class
+        $request = $request->merge([
+            'data' => json_encode($request->data),
         ]);
-//        $log = $request->only('minion_id', 'data');
-//        $log['agent_id'] = $request->get('agent')->id;
-//
-//        $this->logsService->store([], $log);
+
+        $error = Validator::make($request->all(), array(
+            'data' => 'required|json',
+        ));
+
+        if($error->fails()) {
+            return $this->makeResponse(400, ['errors' => $error->errors()->all()]);
+        }
+        $minion = $request->get('minion');
+        $log = [
+            'agent_id' => $minion->agent_id,
+            'minion_id' => $minion->id,
+            'data' => $request->get('data')
+        ];
+
+        $log = $this->logsService->create($log);
+
+        return $this->makeResponse(201, [
+            'data' => $log
+        ]);
     }
 
 }
