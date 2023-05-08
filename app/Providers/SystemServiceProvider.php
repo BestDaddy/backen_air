@@ -6,8 +6,6 @@ use App\Services\Arduino\ArduinoService;
 use App\Services\Arduino\ArduinoServiceImpl;
 use App\Services\Logs\LogsService;
 use App\Services\Logs\LogsServiceImpl;
-use App\Services\Minions\MinionsService;
-use App\Services\Minions\MinionsServiceImpl;
 use App\Services\ArduinoTypes\ArduinoTypesService;
 use App\Services\ArduinoTypes\ArduinoTypesServiceImpl;
 use App\Services\Users\UsersService;
@@ -18,7 +16,7 @@ class SystemServiceProvider extends ServiceProvider
 {
     public function register()
     {
-//        $this->app->bind(UsersService::class, UsersServiceImpl::class);
+
     }
 
     /**

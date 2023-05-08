@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\ParseLog;
 use App\Http\Controllers\ApiBaseController;
 use App\Services\Arduino\ArduinoService;
 use App\Services\Logs\LogsService;
 use App\Services\Minions\MinionsService;
-use App\Services\Parsers\AirParser;
+use App\Services\Parsers\BaseParser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -65,6 +66,8 @@ class ArduinoController extends ApiBaseController
         ];
 
         $log = $this->logsService->create($log);
+
+        ParseLog::dispatch($log->id, $arduino->type_id);
 
         return $this->makeResponse(201, [
             'data' => $log

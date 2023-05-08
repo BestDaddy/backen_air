@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'Base Parser',
-                'class' => 'App\\Services\\Parsers\\AirParser'
+                'class' => 'App\\Services\\Parsers\\BaseParser'
             ]
         );
 
