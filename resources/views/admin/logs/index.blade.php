@@ -20,6 +20,7 @@
             <tr>
                 <th width="5%">ID</th>
                 <th width="15%">{{__('lang.name')}}</th>
+                <th width="15%">{{__('lang.name')}}</th>
                 <th width="15%">{{__('lang.ip')}}</th>
                 <th width="10%">{{__('lang.last_seen_at')}}</th>
                 <th width="15%"></th>
@@ -146,8 +147,12 @@
                         name: 'id'
                     },
                     {
-                        data: 'agent.name',
-                        name: 'name'
+                        data: 'arduino.name',
+                        name: 'arduino.name'
+                    },
+                    {
+                        data: 'arduino.type.name',
+                        name: 'arduino.type.name'
                     },
                     {
                         data: 'data',
