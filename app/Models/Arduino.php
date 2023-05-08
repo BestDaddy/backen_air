@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Agent extends Model
+class Arduino extends Model
 {
+    protected $table = 'arduino';
+
     protected $fillable = [
+        'type_id',
         'name',
         'ip',
         'token',
@@ -22,11 +25,12 @@ class Agent extends Model
     protected $hidden = [
         'token'
     ];
-    public function minions() {
-        return $this->hasMany(Minion::class);
+
+    public function type() {
+        return $this->belongsTo(ArduinoType::class, 'type_id', 'id', 'arduino_types');
     }
 
-    public function minion() {
-        return $this->hasOne(Minion::class);
+    public function logs() {
+        return $this->hasMany(Log::class, 'arduino_id', 'id');
     }
 }

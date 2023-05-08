@@ -10,8 +10,7 @@ class Log extends Model
 //    use HasFactory;
 
     protected $fillable = [
-        'agent_id',
-        'minion_id',
+        'arduino_id',
         'data'
     ];
 
@@ -20,11 +19,7 @@ class Log extends Model
         'created_at' => 'datetime:Y-m-d H:m:s',
     ];
 
-    public function agent() {
-        return $this->belongsTo(Agent::class);
-    }
-
-    public function minion() {
-        return $this->belongsTo(Minion::class);
+    public function arduino() {
+        return $this->belongsTo(Arduino::class);
     }
 }

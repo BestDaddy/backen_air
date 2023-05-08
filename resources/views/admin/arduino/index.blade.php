@@ -21,9 +21,10 @@
                 <th width="5%">ID</th>
                 <th width="15%">{{__('lang.name')}}</th>
                 <th width="15%">{{__('lang.ip')}}</th>
+                <th width="10%">{{__('lang.type')}}</th>
                 <th width="10%">{{__('lang.last_seen_at')}}</th>
                 <th width="15%"></th>
-                <th width="15%"></th>
+{{--                <th width="15%"></th>--}}
             </tr>
             </thead>
         </table>
@@ -61,6 +62,14 @@
                                            name="ip">
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone">{{__('lang.type')}}</label>
+                            <select class="form-control" id="type_id" name="type_id">
+                                @foreach($types as $type)
+                                    <option value="{{$type->id}}">{{$type->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="inputPhone">{{__('lang.config')}}</label>
@@ -107,7 +116,7 @@
 
         function deleteModel() {
             var id = $('#model_id').val();
-            let _url = `/admin/agents/${id}`;
+            let _url = `/admin/arduino/${id}`;
             let _token   = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
@@ -129,7 +138,7 @@
             $('#staticBackdropLabel').text("{{__('lang.edit_agent')}}");
             $('#form-errors').html("");
             var id  = $(event).data("id");
-            let _url = `/admin/agents/${id}/edit`;
+            let _url = `/admin/arduino/${id}/edit`;
             $.ajax({
                 url: _url,
                 type: "GET",
@@ -148,16 +157,18 @@
             var id = $('#model_id').val();
             var name = $('#name').val();
             var ip = $('#ip').val();
+            var type_id = $('#type_id').val();
             var config = $('#config').val();
             let _token   = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: "{{ route('admin.agents.store') }}",
+                url: "{{ route('admin.arduino.store') }}",
                 type: "POST",
                 data: {
                     id: id,
                     name: name,
                     ip: ip,
+                    type_id: type_id,
                     config: config,
                     _token: _token
                 },
@@ -197,7 +208,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.agents.index') }}",
+                    url: "{{ route('admin.arduino.index') }}",
                 },
                 columns: [
                     {
@@ -213,6 +224,11 @@
                         name: 'ip'
                     },
                     {
+                        data: 'type.name',
+                        name: 'type.name',
+                        orderable: false
+                    },
+                    {
                         data: 'last_seen_at',
                         name: 'last_seen_at'
                     },
@@ -221,11 +237,11 @@
                         name: 'edit',
                         orderable: false
                     },
-                    {
-                        data: 'more',
-                        name: 'more',
-                        orderable: false
-                    },
+                    // {
+                    //     data: 'more',
+                    //     name: 'more',
+                    //     orderable: false
+                    // },
                 ]
             });
         });

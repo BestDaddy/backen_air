@@ -3,25 +3,25 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\MinionTypes\MinionTypesService;
+use App\Services\ArduinoTypes\ArduinoTypesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class MinionTypeController extends Controller
+class ArduinoTypeController extends Controller
 {
-    private MinionTypesService $minionTypesService;
-    public function __construct(MinionTypesService $minionTypesService)
+    private ArduinoTypesService $minionTypesService;
+    public function __construct(ArduinoTypesService $minionTypesService)
     {
         $this->minionTypesService = $minionTypesService;
     }
 
     public function index() {
         if(request()->ajax()) {
-            return $this->minionTypesService->datatable([MinionTypesService::DATATABLE_BUTTON_EDIT], []);
+            return $this->minionTypesService->datatable([ArduinoTypesService::DATATABLE_BUTTON_EDIT], []);
         }
 
-        return view('admin.minion_types.index');
+        return view('admin.arduino_types.index');
     }
 
     public function store(Request $request) {
@@ -37,7 +37,7 @@ class MinionTypeController extends Controller
         }
 
         $minion = $this->minionTypesService->store(['id' => $request->id], $request->all());
-        return response()->json(['code' => 200, 'message'=>'MinionType saved successfully', 'data' => $minion], 200);
+        return response()->json(['code' => 200, 'message'=>'ArduinoType saved successfully', 'data' => $minion], 200);
     }
 
     public function edit($id) {
@@ -47,6 +47,6 @@ class MinionTypeController extends Controller
     public function destroy(string $id)
     {
         $this->minionTypesService->delete($id);
-        return response()->json(['code' => 200, 'message'=>'MinionType deleted successfully'], 200);
+        return response()->json(['code' => 200, 'message'=>'ArduinoType deleted successfully'], 200);
     }
 }

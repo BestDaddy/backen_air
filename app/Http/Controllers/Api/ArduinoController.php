@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiBaseController;
-use App\Services\Agents\AgentsService;
+use App\Services\Arduino\ArduinoService;
 use App\Services\Logs\LogsService;
 use App\Services\Minions\MinionsService;
 use App\Services\Parsers\AirParser;
@@ -11,30 +11,28 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class AgentController extends ApiBaseController
+class ArduinoController extends ApiBaseController
 {
-    private AgentsService $agentsService;
-    private MinionsService $minionsService;
+    private ArduinoService $arduinoService;
     private LogsService $logsService;
-    public function __construct(AgentsService $agentsService, MinionsService $minionsService, LogsService $logsService)
+    public function __construct(ArduinoService $arduinoService, LogsService $logsService)
     {
-        $this->agentsService = $agentsService;
-        $this->minionsService = $minionsService;
+        $this->arduinoService = $arduinoService;
         $this->logsService = $logsService;
     }
     public function auth(Request $request) {
 
         $type = $request->header('type');
-        $minion = $this->minionsService->auth($request->ip(), $type);
-        if ($minion) {
+        $arduino = $this->arduinoService->auth($request->ip(), $type);
+        if ($arduino) {
             $token = md5('kekw' . rand(0, 999));
             $expired_at = Carbon::now()->addDay();
-            $this->minionsService->update($minion->id, ['token' => $token, 'expired_at' => $expired_at]);
+            $this->arduinoService->update($arduino->id, ['token' => $token, 'expired_at' => $expired_at, 'last_seen_at' => Carbon::now()]);
 
             return $this->makeResponse(200, [
                 'token' => $token,
                 'expired_at' => $expired_at,
-                'minion' => $minion,
+                'arduino' => $arduino,
             ]);
         } else {
             return $this->makeResponse(401, [
@@ -45,12 +43,12 @@ class AgentController extends ApiBaseController
     }
 
     public function me(Request $request) {
-        return $this->makeResponse(200, $request->get('minion'));
+        return $this->makeResponse(200, $request->get('arduino'));
     }
 
     public function send(Request $request) {
         $request = $request->merge([
-            'data' => json_encode($request->data),
+            'data' => $request->data ? json_encode($request->data) : null,
         ]);
 
         $error = Validator::make($request->all(), array(
@@ -60,10 +58,9 @@ class AgentController extends ApiBaseController
         if($error->fails()) {
             return $this->makeResponse(400, ['errors' => $error->errors()->all()]);
         }
-        $minion = $request->get('minion');
+        $arduino = $request->get('arduino');
         $log = [
-            'agent_id' => $minion->agent_id,
-            'minion_id' => $minion->id,
+            'arduino_id' => $arduino->id,
             'data' => $request->get('data')
         ];
 

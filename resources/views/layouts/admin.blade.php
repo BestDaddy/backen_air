@@ -82,19 +82,14 @@
                 <span>{{__('lang.users')}}</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.agents.index')}}">
+            <a class="nav-link" href="{{route('admin.arduino.index')}}">
                 <i class="fas fa-fw fa-bookmark"></i>
-                <span>{{__('lang.agents')}}</span></a>
+                <span>{{__('lang.arduino')}}</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.minions.index')}}">
+            <a class="nav-link" href="{{route('admin.arduino-types.index')}}">
                 <i class="fas fa-fw fa-address-book"></i>
-                <span>{{__('lang.minions')}}</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.minion-types.index')}}">
-                <i class="fas fa-fw fa-address-book"></i>
-                <span>{{__('lang.minion-types')}}</span></a>
+                <span>{{__('lang.arduino-types')}}</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.logs.index')}}">

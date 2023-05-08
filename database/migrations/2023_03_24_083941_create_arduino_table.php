@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agents', function (Blueprint $table) {
+        Schema::create('arduino_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('class');
+        });
+
+        Schema::create('arduino', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('type_id')->constrained('arduino_types')->onDelete('CASCADE');
             $table->string('name', '255');
             $table->ipAddress('ip')->unique();
             $table->ipAddress('token')->nullable();
@@ -28,6 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agents');
+        Schema::dropIfExists('arduino');
+        Schema::dropIfExists('arduino_types');
     }
 };

@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Agent;
+use App\Models\Arduino;
 use App\Models\Minion;
-use App\Models\MinionType;
+use App\Models\ArduinoType;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => Role::ROLE_USER_ID,
         ]);
 
-        MinionType::create(
+        ArduinoType::create(
             [
                 'id' => 1,
                 'name' => 'Base Parser',
@@ -49,18 +49,12 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Agent::create(
+        Arduino::create(
             [
                 'id' => 1,
+                'type_id' => 1,
                 'name' => 'Local agent',
                 'ip' => '127.0.0.1',
-            ]
-        );
-
-        Minion::create(
-            [
-                'agent_id' => 1,
-                'minion_type_id' => 1
             ]
         );
     }
