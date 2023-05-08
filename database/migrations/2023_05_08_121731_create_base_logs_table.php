@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('base_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('arduino_id')->constrained('arduino')->onDelete('CASCADE');
             $table->foreignId('log_id')->constrained('logs')->onDelete('CASCADE');
             $table->double('ppm')->default(0);
             $table->timestamps();

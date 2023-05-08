@@ -5,23 +5,26 @@ namespace App\Services\Parsers;
 use App\Models\BaseLog;
 use App\Models\Log;
 use App\Utils\Utils;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Log\Logger;
 
 class BaseParser implements Parser
 {
-    private $log_id;
-    public function __construct($log_id)
+    private Model $model;
+
+    public function __construct()
     {
-        $this->log_id = $log_id;
+        $this->model = new BaseLog;
     }
 
-    public function execute()
+    public function execute($log_id)
     {
-        $log = Log::find($this->log_id);
+        $log = Log::find($log_id);
         if (!empty($log)) {
             $data = json_decode($log->data, true);
 
-            $result = BaseLog::create([
+            $result = $this->model::create([
+                'arduino_id' => $log->arduino_id,
                 'log_id' => $log->id,
                 'ppm' => $data['ppm']
             ]);
@@ -32,5 +35,10 @@ class BaseParser implements Parser
             }
         }
 
+    }
+
+    public function getModel()
+    {
+        return $this->model;
     }
 }

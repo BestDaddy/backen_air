@@ -11,8 +11,13 @@ class BaseLog extends Model
 
     protected $table = 'base_logs';
     protected $fillable = [
+        'arduino_id',
         'log_id',
         'ppm',
+    ];
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function log() {

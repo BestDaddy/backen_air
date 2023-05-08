@@ -25,10 +25,7 @@ class ParseLogListener implements ShouldQueue
     {
         $type = ArduinoType::find($event->arduino_type_id);
 
-        $parser = new $type->class($event->log_id);
-
-        $parser->execute();
-
-        return;
+        $parser = new $type->class();
+        $parser->execute($event->log_id);
     }
 }
