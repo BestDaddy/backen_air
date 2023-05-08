@@ -28,5 +28,7 @@ class ParseLogListener implements ShouldQueue
         $parser = new $type->class($event->log_id);
 
         $parser->execute();
+
+        return;
     }
 }

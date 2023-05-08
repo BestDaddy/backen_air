@@ -8,6 +8,7 @@ use App\Services\Arduino\ArduinoService;
 use App\Services\Logs\LogsService;
 use App\Services\Minions\MinionsService;
 use App\Services\Parsers\BaseParser;
+use App\Utils\Utils;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

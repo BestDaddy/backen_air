@@ -4,6 +4,7 @@ namespace App\Services\Parsers;
 
 use App\Models\BaseLog;
 use App\Models\Log;
+use App\Utils\Utils;
 use Illuminate\Log\Logger;
 
 class BaseParser implements Parser
@@ -16,15 +17,19 @@ class BaseParser implements Parser
 
     public function execute()
     {
-        sleep(5);
         $log = Log::find($this->log_id);
         if (!empty($log)) {
             $data = json_decode($log->data, true);
 
-            BaseLog::create([
+            $result = BaseLog::create([
                 'log_id' => $log->id,
                 'ppm' => $data['ppm']
             ]);
+
+            if ($result->ppm > 100) {
+                $msg = '*' . 'WARNING' . "*\n" . $log->created_at . "\n*" . 'CO2 PPM (parts per million): '. $result->ppm . "*\n" ;
+                Utils::sentTelegram($msg);
+            }
         }
 
     }
