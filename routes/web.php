@@ -45,6 +45,6 @@ Route::group(['prefix' =>'admin', 'middleware'=>'admin', 'as' => 'admin.'], func
 //    Route::resource('minions', \App\Http\Controllers\Web\Admin\MinionController::class)->only('index', 'store', 'edit', 'destroy');
     Route::resource('arduino-types', \App\Http\Controllers\Web\Admin\ArduinoTypeController::class)->only('index', 'store', 'edit', 'destroy');
     Route::resource('logs', \App\Http\Controllers\Web\Admin\LogController::class)->only('index');
-    Route::get('/parsed-logs/{arduino_id}', [\App\Http\Controllers\Web\Admin\LogController::class, 'parsedIndex'])->name('parsed.logs');
+//    Route::get('/parsed-logs/{arduino_id}', [\App\Http\Controllers\Web\Admin\LogController::class, 'parsedIndex'])->name('parsed.logs');
 });
 

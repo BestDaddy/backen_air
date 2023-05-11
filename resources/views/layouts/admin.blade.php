@@ -83,17 +83,17 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.arduino.index')}}">
-                <i class="fas fa-fw fa-bookmark"></i>
+                <i class="fas fa-fw fa-mobile-alt"></i>
                 <span>{{__('lang.arduino')}}</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.arduino-types.index')}}">
-                <i class="fas fa-fw fa-address-book"></i>
+                <i class="fas fa-fw fa-boxes"></i>
                 <span>{{__('lang.arduino-types')}}</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.logs.index')}}">
-                <i class="fas fa-fw fa-address-book"></i>
+                <i class="fas fa-fw fa-table"></i>
                 <span>{{__('lang.logs')}}</span></a>
         </li>
 {{--        <li class="nav-item">--}}

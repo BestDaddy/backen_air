@@ -24,7 +24,7 @@
                 <th width="10%">{{__('lang.type')}}</th>
                 <th width="10%">{{__('lang.last_seen_at')}}</th>
                 <th width="15%"></th>
-{{--                <th width="15%"></th>--}}
+                <th width="15%"></th>
             </tr>
             </thead>
         </table>
@@ -237,11 +237,11 @@
                         name: 'edit',
                         orderable: false
                     },
-                    // {
-                    //     data: 'more',
-                    //     name: 'more',
-                    //     orderable: false
-                    // },
+                    {
+                        data: 'more',
+                        name: 'more',
+                        orderable: false
+                    },
                 ]
             });
         });

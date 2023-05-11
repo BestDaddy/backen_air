@@ -78,5 +78,9 @@ return [
 
     'answers' =>'Answers',
     'make_score' =>'Score',
+
+    'arduino' => 'Arduino',
+    'arduino-types' => 'Arduino types',
+    'logs' => "Logs"
 ];
 

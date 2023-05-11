@@ -47,7 +47,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.parsed.logs', $arduino->id) }}",
+                    url: "{{ route('admin.arduino.show', $arduino->id) }}",
                 },
                 columns: [
                     {
