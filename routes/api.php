@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' =>'arduino', 'middleware' => 'auth.arduino', 'as' => 'arduino.'], function () {
-    Route::post('/auth', [\App\Http\Controllers\Api\ArduinoController::class, 'auth'])->name('auth')->withoutMiddleware(['auth.arduino']);
+    Route::get('/auth', [\App\Http\Controllers\Api\ArduinoController::class, 'auth'])->name('auth')->withoutMiddleware(['auth.arduino']);
     Route::get('/me', [\App\Http\Controllers\Api\ArduinoController::class, 'me']);
     Route::post('/send', [\App\Http\Controllers\Api\ArduinoController::class, 'send']);
 });

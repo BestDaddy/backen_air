@@ -27,7 +27,7 @@ Auth::routes();
 
 Route::group(['prefix' =>'user', 'middleware'=>'auth', 'as' => 'user.'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+    Route::resource('arduino', \App\Http\Controllers\Web\User\ArduinoController::class)->only('index','show');
 
 });
 

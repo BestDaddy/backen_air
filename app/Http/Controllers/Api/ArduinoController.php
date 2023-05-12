@@ -19,8 +19,12 @@ class ArduinoController extends ApiBaseController
         $this->arduinoService = $arduinoService;
         $this->logsService = $logsService;
     }
-    public function auth(Request $request) {
 
+    public function lol() {
+        return $this->arduinoService->firstWhere(['id' => 1]);
+    }
+    public function auth(Request $request) {
+        error_log($request->ip());
         $type = $request->header('type');
         $arduino = $this->arduinoService->auth($request->ip(), $type);
         if ($arduino) {

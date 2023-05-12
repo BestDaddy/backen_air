@@ -74,17 +74,22 @@
         <div class="sidebar-heading">
             {{__('lang.menu')}}
         </div>
-        @if(Auth::user())
-        @if(Auth::user()->role_id == \App\Models\Role::ROLE_ADMIN_ID)
+        @if(Auth::user()->role_id == \App\Models\Role::ROLE_USER_ID)
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.users.index')}}">
-                <i class="fas fa-fw fa-users"></i>
-                <span>{{__('lang.users')}}</span></a>
+            <a class="nav-link" href="{{route('user.arduino.index')}}">
+                <i class="fas fa-fw fa-mobile-alt"></i>
+                <span>{{__('lang.arduino')}}</span></a>
         </li>
+        @if(Auth::user()->role_id == \App\Models\Role::ROLE_ADMIN_ID)
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.arduino.index')}}">
                 <i class="fas fa-fw fa-mobile-alt"></i>
                 <span>{{__('lang.arduino')}}</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.users.index')}}">
+                <i class="fas fa-fw fa-users"></i>
+                <span>{{__('lang.users')}}</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.arduino-types.index')}}">
