@@ -55,4 +55,10 @@ class ArduinoController extends Controller
 
         return view('admin.logs.type_' . $arduino->type->id, compact('arduino', 'chart'));
     }
+
+    public function dashboard(){
+        $arduinos = $this->arduinoService->allWith(['baseLog' => function ($q) {$q->orderBy('id', 'desc');}]);
+
+        return view('home', compact('arduinos'));
+    }
 }

@@ -80,6 +80,7 @@
                 <i class="fas fa-fw fa-mobile-alt"></i>
                 <span>{{__('lang.arduino')}}</span></a>
         </li>
+        @endif
         @if(Auth::user()->role_id == \App\Models\Role::ROLE_ADMIN_ID)
         <li class="nav-item">
             <a class="nav-link" href="{{route('admin.arduino.index')}}">
@@ -127,7 +128,6 @@
                 </div>
             </div>
         </li>
-        @endif
         @endif
         <!-- Nav Item - Pages Collapse Menu -->
         <hr class="sidebar-divider d-none d-md-block">

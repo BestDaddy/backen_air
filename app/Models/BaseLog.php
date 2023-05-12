@@ -23,4 +23,8 @@ class BaseLog extends Model
     public function log() {
         return $this->belongsTo(Log::class);
     }
+
+    public function arduino() {
+        return $this->belongsTo(Arduino::class);
+    }
 }

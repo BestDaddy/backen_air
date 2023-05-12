@@ -29,8 +29,11 @@ class BaseParser implements Parser
                 'ppm' => $data['ppm']
             ]);
 
-            if ($result->ppm > 100) {
-                $msg = '*' . 'WARNING' . "*\n" . $log->created_at . "\n*" . 'CO2 PPM (parts per million): '. $result->ppm . "*\n" ;
+            if ($result->ppm <= 1) {
+                $result->loadMissing(['arduino']);
+                $ppm = 1000 / ($result->ppm !=0 ? $result->ppm : 0.1);
+                $msg = '*' . 'WARNING' . "*\n" . $log->created_at . "\n*" . 'PPM (parts per million): '. $ppm . "*\n";
+                $msg .= '*Arduino:' . data_get($result, 'arduino.name') . '*\n';
                 Utils::sentTelegram($msg);
             }
         }

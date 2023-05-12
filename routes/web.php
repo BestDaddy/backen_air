@@ -26,7 +26,7 @@ Auth::routes();
 //Route::post('/register', [App\Http\Controllers\HomeController::class, 'asdf'])->name('register');
 
 Route::group(['prefix' =>'user', 'middleware'=>'auth', 'as' => 'user.'], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [\App\Http\Controllers\Web\User\ArduinoController::class, 'dashboard'])->name('home');
     Route::resource('arduino', \App\Http\Controllers\Web\User\ArduinoController::class)->only('index','show');
 
 });

@@ -68,6 +68,7 @@ class ArduinoController extends ApiBaseController
         ];
 
         $log = $this->logsService->create($log);
+        $arduino->update(['last_seen_at' => Carbon::now()]);
 
         ParseLog::dispatch($log->id, $arduino->type_id);
 

@@ -33,4 +33,12 @@ class Arduino extends Model
     public function logs() {
         return $this->hasMany(Log::class, 'arduino_id', 'id');
     }
+
+    public function baseLogs() {
+        return $this->hasMany(BaseLog::class);
+    }
+
+    public function baseLog() {
+        return $this->hasOne(BaseLog::class);
+    }
 }

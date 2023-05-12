@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h2>{{__('lang.all_agents')}} :</h2>
+    <h2>{{$arduino->name}} : {{$arduino->last_seen_at}}</h2>
     <hr>
     <br>
     <br>
